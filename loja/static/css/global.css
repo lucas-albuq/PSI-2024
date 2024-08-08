@@ -1,0 +1,85 @@
+#content {
+    min-height: calc(100vh - 112px);
+}
+
+.image-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    margin: 10px auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #ccc;
+}
+
+.btn-card {
+    width: 49.5%;
+    float: left;
+    font-size: 0.9em;
+}
+
+.btn-card:last-child {
+    margin-left: 1%;
+}
+
+.specialties {
+    padding: 0;
+    list-style: none;
+    min-height: 46px;
+}
+
+.navigation {
+    margin: 0 auto;
+}
+
+.social-container {
+    display: flex;
+}
+
+.social-container span {
+    display: flex;
+    align-content: space-between;
+}
+
+.social-container a {
+    margin: 0 1%;
+    width: 50%;
+    height: 40px;
+    line-height: 20px;
+}
+
+.social-container a,
+.social-container a:hover,
+.social-container a:active,
+.social-container a:visited {
+    color: #fff;
+}
+
+.social-container a:first-child {
+    margin-left: 0;
+}
+
+.social-container a:last-child {
+    margin-right: 0;
+}
+
+.social-container a#facebook,
+.social-container a#facebook:visited {
+    background-color: #3b5999;
+}
+
+.social-container a#google,
+.social-container a#google:visited {
+    background-color: #dd4b39;
+}
+
+.social-container a#facebook:hover,
+.social-container a#facebook:active {
+    background-color: #383871;
+}
+
+.social-container a#google:hover,
+.social-container a#google:active {
+    background-color: #9e3e2c;
+}
