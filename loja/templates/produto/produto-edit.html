@@ -42,6 +42,32 @@
                 <input value="{{produto.msgPromocao}}" name="msgPromocao">
             </div>
             <div class="row">
+                <label for="CategoriaFk" class="col-md-2" >Categorias</label>
+                <select name="CategoriaFk">
+                    <option value="-1">-----</option>
+                    {% for cate in categorias %}
+                        {% if produto.categoria_id == cate.id %}
+                            <option value="{{cate.id}}" selected>{{cate.Categoria}}</option>
+                        {% else %}
+                            <option value="{{cate.id}}">{{cate.Categoria}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <label for="FabricanteFk" class="col-md-2" >Fabricantes</label>
+                <select name="FabricanteFk">
+                    <option value="-1">-----</option>
+                    {% for fabri in fabricantes %}
+                        {% if produto.fabricante_id == fabri.id %}
+                            <option value="{{fabri.id}}" selected>{{fabri.Fabricante}}</option>
+                        {% else %}
+                            <option value="{{fabri.id}}">{{fabri.Fabricante}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
                 <button type="submit" class="btn btn-danger col-md-2 mt-3 mr-2">
                     <i class="fa fa-check"></i> Salvar
                 </button>

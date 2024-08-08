@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from loja.models import Produto
+from loja.models import Produto, Fabricante, Categoria
 from datetime import timedelta, datetime
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
@@ -41,6 +41,8 @@ def edit_produto_view(request, id=None):
         produtos = produtos.filter(id=id)
     produto = produtos.first()
     print(produto)
+    Fabricantes = Fabricante.objects.all()
+    Categorias = Categoria.objects.all()
     context = { 
         'produto': produto 
         }
@@ -53,6 +55,8 @@ def edit_produto_postback(request, id=None):
         destaque = request.POST.get("destaque")
         promocao = request.POST.get("promocao")
         msgPromocao = request.POST.get("msgPromocao")
+        categoria = request.POST.get("CategoriaFk")
+        fabricante = request.POST.get("FabricanteFk")
 
         print("postback")
         print(id)
@@ -65,7 +69,9 @@ def edit_produto_postback(request, id=None):
             obj_produto.Produto = produto
             obj_produto.destaque = (destaque is not None)
             obj_produto.promocao = (promocao is not None)
-
+            obj_produto.fabricante = Fabricante.objects.filter(id=fabricante).first()
+            obj_produto.categoria = Categoria.objects.filter(id=categoria).first()
+            
             if msgPromocao is not None:
                 obj_produto.msgPromocao = msgPromocao
 
@@ -132,7 +138,7 @@ def create_produto_view(request, id=None):
             obj_produto.promocao = (promocao is not None)
             if msgPromocao is not None:
                 obj_produto.msgPromocao = msgPromocao
-                obj_produto.preco = 0
+            obj_produto.preco = 0
             if (preco is not None) and ( preco != ""):
                 obj_produto.preco = preco
             obj_produto.criado_em = timezone.now()
@@ -146,7 +152,7 @@ def create_produto_view(request, id=None):
                     filename = fs.save(imagefile.name, imagefile)
                     if (filename is not None) and (filename != ""):
                         obj_produto.image = filename
-            obj_produto.save()
+                obj_produto.save()
             print("Produto %s salvo com sucesso" % produto)
         except Exception as e:
             print("Erro inserindo produto: %s" % e)
