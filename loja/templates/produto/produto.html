@@ -7,13 +7,18 @@
 {% block content %}
     <div id="content">
         <div class="container">
-            <div class="alert alert-info">Produtos encontrados [{{ produtos | length }}]</div>
+            <div class="alert alert-info">
+                <a href="{% url 'create_produto' %}" class="btn btn-primary mr-2"> 
+                    <i class="fa fa-plus"></i> Novo Produto
+                </a>
+                Produtos encontrados [{{ produtos | length }}]
+            </div>
             {% for prod in produtos %}
                 <div class="row">
                     <h5 class="col-md-3">{{prod.Produto}}</h5>
-                    <a href="{% url 'produto' prod.id %}" class="btn btn-primary mb-2 mr-2"><i class="fa fa-search"></i> Ver</a>
+                    <a href="{% url 'details_produto' prod.id %}" class="btn btn-primary mb-2 mr-2"><i class="fa fa-search"></i> Ver</a>
                     <a href="{% url 'edit_produto' prod.id %}" class="btn bg-secondary mb-2 mr-2"><i class="fa fa-edit"></i> Editar</a>
-                    <a href="{% url 'produto' prod.id %}" class="btn btn-warning mb-2">
+                    <a href="{% url 'delete_produto' prod.id %}" class="btn btn-warning mb-2">
                     <i class="fa fa-sign-in"></i> Apagar</a>
                 </div>
             {% endfor %}
