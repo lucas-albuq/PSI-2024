@@ -42,6 +42,18 @@
                 <input value="{{produto.msgPromocao}}" name="msgPromocao" disabled>
             </div>
             <div class="row">
+                <label for="CategoriaFk" class="col-md-2">Categoria</label>
+                <select name="CategoriaFk" disabled>
+                    <option value="{{produto.categoria}}" selected>{{ produto.categoria.Categoria }}</option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="FabricanteFk" class="col-md-2">Fabricante</label>
+                <select name="FabricanteFk" disabled>
+                    <option value="{{produto.fabricante}}" selected>{{ produto.fabricante.Fabricante }}</option>
+                </select>
+            </div>
+            <div class="row">
                 <button type="submit" class="btn btn-danger col-md-2 mt-3 mr-2">
                     <i class="fa fa-check"></i> Excluir
                 </button>
