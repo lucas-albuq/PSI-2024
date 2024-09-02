@@ -89,12 +89,8 @@ def details_produto_view(request, id=None):
         produtos = produtos.filter(id=id)
     produto = produtos.first()
     print(produto)
-    Fabricantes = Fabricante.objects.all()
-    Categorias = Categoria.objects.all()
     context = { 
         'produto': produto,
-        'fabricantes': Fabricantes,
-        'categorias': Categorias,
         }
     return render(request, template_name='produto/produto-details.html', context=context, status=200)
 
@@ -104,12 +100,8 @@ def delete_produto_view(request, id=None):
         produtos = produtos.filter(id=id)
     produto = produtos.first()
     print(produto)
-    Fabricantes = Fabricante.objects.all()
-    Categorias = Categoria.objects.all()
     context = { 
         'produto': produto,
-        'fabricantes': Fabricantes,
-        'categorias': Categorias,
         }
     return render(request, template_name='produto/produto-delete.html', context=context, status=200)
 
