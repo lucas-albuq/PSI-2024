@@ -44,7 +44,9 @@ def edit_produto_view(request, id=None):
     Fabricantes = Fabricante.objects.all()
     Categorias = Categoria.objects.all()
     context = { 
-        'produto': produto 
+        'produto': produto,
+        'fabricantes': Fabricantes,
+        'categorias': Categorias,
         }
     return render(request, template_name='produto/produto-edit.html', context=context,status=200)
 
