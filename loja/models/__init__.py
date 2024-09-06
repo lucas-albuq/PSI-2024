@@ -5,3 +5,8 @@ from django.dispatch import receiver
 from .Fabricante import Fabricante
 from .Categoria import Categoria
 from .Produto import Produto
+PERFIL=(
+    (1, 'Admin'),
+    (2, 'Usuario')
+)
+from .Usuario import Usuario
