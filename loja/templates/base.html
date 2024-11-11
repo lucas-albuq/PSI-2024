@@ -13,28 +13,42 @@
   <body>
       <header>
           <nav class="navbar justify-content-end navbar-expand-lg">
-              <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/"><i class="fa fa-home"></i> Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/categoria"><i class="fa fa-book"></i> Categoria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/fabricante"><i class="fa fa-book"></i> Fabricante</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/produto"><i class="fa fa-book"></i> Produto</a>
-                    </li>  
-                    <li class="nav-item">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="fa fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categoria"><i class="fa fa-book"></i> Categoria</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/fabricante"><i class="fa fa-book"></i> Fabricante</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/produto"><i class="fa fa-book"></i> Produto</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/usuario"><i class="fa fa-book"></i> Usuário</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'usuario' %}"><i class="fa fa-user"></i> Perfil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login"><i class="fa fa-sign-in"></i> Entrar</a>
+                        <a class="nav-link" href="{% url 'edit_usuario' %}"><i class="fa fa-edit"></i> Editar Perfil</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-edit"></i>
-                    Registrar</a></li>
-              </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Sair</a>
+                    </li>
+                {% else %}  
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Entrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}"><i class="fa fa-edit"></i> Registrar</a>
+                    </li>
+                {% endif %}
+            </ul>
           </nav>
       </header>
       {% block content %}{% endblock %}
