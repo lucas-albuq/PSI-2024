@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from loja.forms.AuthForm import LoginForm, RegisterForm
+from loja.models import Usuario
+
 def login_view(request):
     loginForm = LoginForm()
     message = None
@@ -54,6 +56,7 @@ def register_view(request):
             else:
                 user = User.objects.create_user(username, email, password)
                 if user is not None:
+                    Usuario.create_user_usuario(sender=user, instance=user, created=True)
                     message = { 'type': 'success', 'text': 'Conta criada com sucesso!' }
                 else:
                     message = { 'type': 'danger', 'text': 'Um erro ocorreu ao tentar criar o usuário.' }

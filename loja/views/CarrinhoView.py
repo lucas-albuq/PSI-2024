@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from loja.models import Produto, Carrinho, CarrinhoItem
+from loja.models import Produto, Carrinho, CarrinhoItem, Usuario
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -51,13 +51,13 @@ def create_carrinhoitem_view(request, produto_id=None):
 def list_carrinho_view(request):
     print ('list_carrinho_view')
     carrinho = None
+    carrinho_item = None
     carrinho_id = request.session.get('carrinho_id')
 
     if carrinho_id:
         print ('carrinho: ' + str(carrinho_id))
         carrinho = Carrinho.objects.filter(id=carrinho_id).first()
         print ('Data do carrinho' + str(carrinho.criado_em) )
-        carrinho_item = None
         carrinho_item = CarrinhoItem.objects.filter(carrinho_id=carrinho_id)
         if carrinho_item:
             print ('itens de carrinho encontrado: ' + str(carrinho_item))
@@ -73,22 +73,25 @@ def confirmar_carrinho_view(request):
     print ('confirmar_carrinho_view')
     carrinho = None
     carrinho_id = request.session.get('carrinho_id')
+    carrinho_item = None
 
     if carrinho_id:
         print ('carrinho: ' + str(carrinho_id))
         carrinho = Carrinho.objects.filter(id=carrinho_id).first()
         usuario = get_object_or_404(Usuario, user=request.user)
         print ('Usuario: ' + str(usuario))
-
+        carrinho_item = CarrinhoItem.objects.filter(carrinho_id=carrinho_id)
         if usuario:
-            carrinho.user_id = usuario.id
+            carrinho.user_id = usuario.user.id
             carrinho.situacao = 1
             carrinho.confirmado_em = timezone.make_aware(datetime.today())
             carrinho.save()
+            request.session.pop('carrinho_id', None)
             print ('carrinho salvo')
 
     context = {
-        'carrinho': carrinho
+        'carrinho': carrinho,
+        'itens': carrinho_item,
     }
     return render(request, 'carrinho/carrinho-confirmado.html', context=context)
 
