@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from loja.models import Produto, Fabricante, Categoria
+from loja.models import Produto, Fabricante, Categoria, Usuario
 from datetime import timedelta, datetime
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
@@ -11,6 +11,7 @@ def list_produto_view(request, id=None):
     promocao = request.GET.get("promocao")
     categoria = request.GET.get("categoria")
     fabricante = request.GET.get("fabricante")
+    usuario = get_object_or_404(Usuario, user=request.user)
     dias = request.GET.get("dias")
     produtos = Produto.objects.filter(Produto=produto)
     produtos = Produto.objects.all()
@@ -32,7 +33,8 @@ def list_produto_view(request, id=None):
         produtos = produtos.filter(id=id)
     print(produtos)
     context = {
-        'produtos': produtos
+        'produtos': produtos,
+        'usuario': usuario
         }
     return render(request, template_name='produto/produto.html', context=context, status=200)
 

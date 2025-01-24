@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from loja.models import Produto, Carrinho, CarrinhoItem, Usuario
 from datetime import datetime
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
@@ -102,4 +103,21 @@ def remover_item_view(request, item_id):
     if carrinho_id == item.carrinho.id:
         item.delete()
         
+    return redirect('/carrinho')
+
+def aumentar_quantidade(request, item_id):
+    item = get_object_or_404(CarrinhoItem, id=item_id)
+    item.quantidade += 1
+    item.save()
+    messages.success(request, f'Quantidade de {item.produto.Produto} aumentada!')
+    return redirect('/carrinho')
+
+def diminuir_quantidade(request, item_id):
+    item = get_object_or_404(CarrinhoItem, id=item_id)
+    if item.quantidade > 1:
+        item.quantidade -= 1
+        item.save()
+        messages.success(request, f'Quantidade de {item.produto.Produto} reduzida!')
+    else:
+        messages.warning(request, 'A quantidade mínima é 1. Caso queira remover o item, clique em "Excluir".')
     return redirect('/carrinho')
